@@ -4,16 +4,13 @@ import java.util.List;
 
 import com.greatlearning.emr.entity.Employee;
 
-public interface EmployeeService  {
+public interface EmployeeService {
+  Employee save(Employee employee);
+  List<Employee> findAll();
+  Employee findById(int id);
+  void deleteById(int id);
+  List<Employee> findByFirstName(String firstName);
+  List<Employee> sortByFirstName(String order);
+}
 
-  public List<Employee> findAll();
-  
-  public void save(Employee employee);
-  
-  public Employee findById(int id);
-  
-  public void saveOrUpdate(int id, String firstName, String lastName, String email );
-  
-  public void deleteById(int id);
-}  
 

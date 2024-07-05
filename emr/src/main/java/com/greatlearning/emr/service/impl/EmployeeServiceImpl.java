@@ -12,56 +12,40 @@ import com.greatlearning.emr.service.EmployeeService;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-	@Autowired
-	EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-	@Override
-	public List<Employee> findAll() {
+    @Override
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
+    }
 
-		List<Employee> employees = employeeRepository.findAll();
-		return employees;
-	}
+    @Override
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
+    }
 
-	@Override
-	public void save(Employee employee) {
-		employeeRepository.save(employee);
-	}
+    @Override
+    public Employee findById(int id) {
+        return employeeRepository.findById(id).orElse(null);
+    }
 
-	@Override
-	public Employee findById(int employeeId) {
-		return employeeRepository.findById(employeeId).get();
-	}
+    @Override
+    public void deleteById(int id) {
+        employeeRepository.deleteById(id);
+    }
 
-	@Override
-	public void saveOrUpdate(int id, String firstName, String lastName, String email) {
+    @Override
+    public List<Employee> findByFirstName(String firstName) {
+        return employeeRepository.findByFirstName(firstName);
+    }
 
-		System.out.println("Employee ID ->" + id);
-
-		Employee employeeObj = null;
-		if (id == 0) {
-
-			employeeObj = new Employee(firstName, lastName, email);
-			System.out.println("Add Employee Scenario");
-		} else {
-
-			System.out.println("Update Employee Scenario");
-
-			employeeObj = this.findById(id);
-			employeeObj.setFirstName(firstName);
-			employeeObj.setLastName(lastName);
-			employeeObj.setEmail(email);
-
-		}
-
-		// Save/Update the employeeObj
-		this.save(employeeObj);
-
-	}
-
-	@Override
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    @Override
+    public List<Employee> sortByFirstName(String order) {
+        if (order.equalsIgnoreCase("asc")) {
+            return employeeRepository.findAllByOrderByFirstNameAsc();
+        } else {
+            return employeeRepository.findAllByOrderByFirstNameDesc();
+        }
+    }
 }

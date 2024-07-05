@@ -1,19 +1,18 @@
 package com.greatlearning.emr.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class WelcomeController {
 
-  @RequestMapping("/welcome")
-  public String displayWelcomePage() {
-    return "welcome";
+  @GetMapping("/welcome")
+  public String displayWelcomeMessage() {
+    return "Welcome to the Employee Management REST API";
   }
   
-  @RequestMapping("/")
+  @GetMapping("/")
   public String defaultApplicationHomePage() {
-      
-      return "redirect:/employees/list";
+      return "redirect:/api/employees/list";
   }  
-}  
+}
